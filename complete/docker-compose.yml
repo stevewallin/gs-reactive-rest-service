@@ -1,0 +1,14 @@
+version: '3'
+services:
+  web:
+    image: "springio/gs-reactive-rest-service"
+    ports:
+     - "8080:8080"
+    container_name: spring-boot
+  prometheus:
+    image: "prom/prometheus"
+    ports:
+     - "9090:9090"
+    volumes:
+     - ./prom.yml:/etc/prometheus/prometheus.yml
+    container_name: prometheus

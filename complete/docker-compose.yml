@@ -1,6 +1,6 @@
 version: '3'
 services:
-  web:
+  spring-boot:
     image: "springio/gs-reactive-rest-service"
     ports:
      - "8080:8080"

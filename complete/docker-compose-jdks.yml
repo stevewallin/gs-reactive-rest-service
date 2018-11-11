@@ -1,0 +1,38 @@
+version: '3'
+services:
+  spring-boot-oraclejdk:
+    image: "spring-boot-oraclejdk"
+    container_name: spring-boot-oraclejdk
+  spring-boot-zulu:
+    image: "spring-boot-zulu"
+    container_name: spring-boot-zulu
+  spring-boot-graalvmce:
+    image: "spring-boot-graalvmce"
+    container_name: spring-boot-graalvmce
+  haproxy:
+    image: "haproxy:1.7"
+    depends_on:
+    - "spring-boot-oraclejdk"
+    - "spring-boot-zulu"
+    - "spring-boot-graalvmce"
+    ports:
+    - "8080:8080"
+    volumes:
+    - ./haproxy:/usr/local/etc/haproxy
+    container_name: haproxy
+  prometheus:
+    depends_on:
+    - "spring-boot-oraclejdk"
+    - "spring-boot-zulu"
+    - "spring-boot-graalvmce"
+    image: "prom/prometheus"
+    ports:
+    - "9090:9090"
+    volumes:
+     - ./prom-jdks.yml:/etc/prometheus/prometheus.yml
+    container_name: prometheus
+  grafana:
+     image: "grafana/grafana"
+     ports:
+     - "3000:3000"
+     container_name: grafana

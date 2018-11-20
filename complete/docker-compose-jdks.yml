@@ -1,5 +1,8 @@
 version: '3'
 services:
+  spring-boot-openjdk:
+    image: "spring-boot-openjdk"
+    container_name: spring-boot-openjdk
   spring-boot-oraclejdk:
     image: "spring-boot-oraclejdk"
     container_name: spring-boot-oraclejdk
@@ -13,6 +16,7 @@ services:
     image: "haproxy:1.7"
     depends_on:
     - "spring-boot-oraclejdk"
+    - "spring-boot-openjdk"
     - "spring-boot-zulu"
     - "spring-boot-graalvmce"
     ports:
@@ -22,6 +26,7 @@ services:
     container_name: haproxy
   prometheus:
     depends_on:
+    - "spring-boot-openjdk"
     - "spring-boot-oraclejdk"
     - "spring-boot-zulu"
     - "spring-boot-graalvmce"

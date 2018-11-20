@@ -4,15 +4,26 @@ global:
   evaluation_interval: 5s # Evaluate rules every 5 seconds.
 scrape_configs:
   - job_name: 'spring-boot-graalvmce'
+    scrape_interval: 5s
     metrics_path: '/actuator/prometheus'
     static_configs:
     - targets: ['spring-boot-graalvmce:8080']
   - job_name: 'spring-boot-oraclejdk'
+    scrape_interval: 5s
     metrics_path: '/actuator/prometheus'
     static_configs:
     - targets: ['spring-boot-oraclejdk:8080']
   - job_name: 'spring-boot-zulu'
+    scrape_interval: 5s
     metrics_path: '/actuator/prometheus'
     static_configs:
     - targets: ['spring-boot-zulu:8080']
-
+  - job_name: 'spring-boot-openjdk'
+    scrape_interval: 5s
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+    - targets: ['spring-boot-openjdk:8080']
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+    - targets: ['localhost:9090']
